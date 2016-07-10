@@ -16,11 +16,14 @@ import android.support.v7.graphics.Palette;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -47,6 +50,7 @@ public class ArticleDetailFragment extends Fragment implements
     private ObservableScrollView mScrollView;
     private DrawInsetsFrameLayout mDrawInsetsFrameLayout;
     private ColorDrawable mStatusBarColorDrawable;
+    private MaxWidthLinearLayout mContentContainer;
 
     private int mTopInset;
     private View mPhotoContainerView;
@@ -118,7 +122,7 @@ public class ArticleDetailFragment extends Fragment implements
             public void onScrollChanged() {
                 mScrollY = mScrollView.getScrollY();
                 getActivityCast().onUpButtonFloorChanged(mItemId, ArticleDetailFragment.this);
-                mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
+//                mPhotoContainerView.setTranslationY((int) (mScrollY - mScrollY / PARALLAX_FACTOR));
                 updateStatusBar();
             }
         });
@@ -206,6 +210,15 @@ public class ArticleDetailFragment extends Fragment implements
                                 Palette p = Palette.generate(bitmap, 12);
                                 mMutedColor = p.getDarkMutedColor(0xFF333333);
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
+//                                float ratio = imageContainer.getBitmap().getHeight()/imageContainer.getBitmap().getWidth();
+//                                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+//                                        RelativeLayout.LayoutParams.MATCH_PARENT,
+//                                        RelativeLayout.LayoutParams.WRAP_CONTENT
+//                                );
+//                                DisplayMetrics metrics = new DisplayMetrics();
+//                                getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//                                params.setMargins(0, (int) (ratio * metrics.widthPixels), 0, 0);
+//                                mContentContainer.setLayoutParams(params);
                                 mRootView.findViewById(R.id.meta_bar)
                                         .setBackgroundColor(mMutedColor);
                                 updateStatusBar();
